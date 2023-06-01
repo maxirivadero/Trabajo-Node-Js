@@ -12,11 +12,11 @@ const app = express();
 app.use(bodyParser.json());
 app.use(logging);
 
-app.use("/user", authMiddleware, userRouter);
+app.use("/user", userRouter);
 app.use("/login", authRouter);
 
-app.use("/libreria", authMiddleware, libreriaRouter);
-app.use("/libro", authMiddleware, libroRouter);
+app.use("/libreria", libreriaRouter);
+app.use("/libro", libroRouter);
 
 
 app.listen(PORT, async () => {

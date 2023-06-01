@@ -1,25 +1,24 @@
-const userProvider = require("../providers/userProvider");
+const libreriaProvider = require("../providers/libreriaProvider");
 
-const getUser = async (id) => {
-  return await userProvider.getUser(id);
+const getLibreria = async (id) => {
+  return await libreriaProvider.getLibreria(id);
 };
 
-const getUsers = async (options) => {
-  return await userProvider.getUsers(options);
+const getLibrerias = async (options) => {
+  return await libreriaProvider.getLibrerias(options);
 };
 
-const createUser = async (user) => {
-  return await userProvider.createUser(user);
+const createLibreria = async (libreria) => {
+  return await libreriaProvider.createLibreria(libreria);
 };
 
-const updateUser = async (id, user) => {
-  return await userProvider.updateUser(id, user);
+const updateLibreria = async (id, libreria) => {
+  return await libreriaProvider.updateLibreria(id, libreria);
 };
 
-const deleteUser = async (id) => {
-  return await userProvider.deleteUser(id);
+const deleteLibreria = async (id) => {
+  return await libreriaProvider.deleteLibreria(id);
 };
 
-const queryUser = (name) => {};
 
-module.exports = { getUser, getUsers, createUser, updateUser, deleteUser };
+module.exports = { getLibreria, getLibrerias, createLibreria, updateLibreria, deleteLibreria };

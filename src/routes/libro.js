@@ -36,10 +36,10 @@ router.get("/", async (req, res) => {
 });
 
 
-router.post("/", async (req, res) => {
+router.post("/", authIsAdmin,  async (req, res) => {
   const { isbn, titulo, autor, year,library } = req.body;
   try {
-    const newLibro = await libroService.getLibros({
+    const newLibro = await libroService.createLibro({
       isbn,
       titulo,
       autor,
@@ -52,7 +52,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:libroId", async (req, res) => {
+router.put("/:libroId", authIsAdmin,  async (req, res) => {
   const libroId = req.params.libroId;
   const { isbn, titulo, autor, year,library } = req.body;
   try {

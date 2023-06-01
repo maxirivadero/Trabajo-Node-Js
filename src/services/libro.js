@@ -1,4 +1,4 @@
-const libroProvider = require("../providerslibroProvider");
+const libroProvider = require("../providers/libroProvider");
 
 const getLibro = async (id) => {
   return await libroProvider.getLibro(id);
@@ -20,6 +20,5 @@ const deleteLibro = async (id) => {
   return await libroProvider.deleteLibro(id);
 };
 
-const queryUser = (name) => {};
 
 module.exports = { getLibro, getLibros, createLibro, updateLibro, deleteLibro };

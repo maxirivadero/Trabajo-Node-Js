@@ -1,5 +1,5 @@
 const { Op } = require("sequelize");
-const { Libro, Libreria, Libro } = require("../models");
+const { User, Libreria, Libro } = require("../models");
 
 const createLibro = async (libroOptions) => {
   try {
