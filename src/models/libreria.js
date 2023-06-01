@@ -14,7 +14,7 @@ const Libreria = sequelize.define("Libreria", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-});
+},{paranoid:true, deletedAt: 'softDelete'});
 
 
 module.exports = Libreria;

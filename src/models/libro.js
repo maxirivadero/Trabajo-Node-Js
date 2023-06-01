@@ -24,7 +24,7 @@ const Libro = sequelize.define("Libro", {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-});
+},{paranoid:true, deletedAt: 'softDelete'});
 
 Libreria.hasMany(Libro);
 Libro.belongsTo(Libreria);
