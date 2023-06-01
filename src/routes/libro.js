@@ -4,7 +4,6 @@ const router = express.Router();
 const { authIsAdmin } = require("../middleware/authentication-jwt");
 
 router.get("/:libroId", async (req, res) => {
-  const reqLibro = req.libro;
   const libroId = req.params.libroId;
   try {
     const libro = await libroService.getlibro(libroId);
@@ -15,61 +14,66 @@ router.get("/:libroId", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  const { nombre, email } = req.query;
+  const { isbn, titulo, autor, year,library } = req.query;
   try {
-    let users;
+    let libros;
     if (Object.keys(req.query).length !== 0) {
-      users = await userService.getUsers({
-        ...(nombre && { nombre }),
-        ...(email && { email }),
+      libros = await libroService.getLibros({
+        ...(isbn && { isbn }),
+        ...(titulo && { titulo }),
+        ...(autor && { autor }),
+        ...(year && { year }),
+        ...(library && { library }),
       }); // Esto sólo va a agregar los campos si vinieron en la query
     } else {
-      users = await userService.getUsers();
+      libros = await libroService.getLibros();
     }
 
-    res.status(200).json(users);
+    res.status(200).json(libros);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
-// Usarla para crear un nuevo libro en la libreria
+
 router.post("/", async (req, res) => {
-  const { nombre, apellido, email, password } = req.body;
+  const { isbn, titulo, autor, year,library } = req.body;
   try {
-    const newUser = await userService.createUser({
-      nombre,
-      apellido,
-      email,
-      password,
+    const newLibro = await libroService.getLibros({
+      isbn,
+      titulo,
+      autor,
+      year,
+      library,
     });
-    res.status(201).json(newUser);
+    res.status(201).json(newLibro);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
-router.put("/:userId", async (req, res) => {
-  const userId = req.params.userId;
-  const { nombre, apellido, email, password } = req.body;
+router.put("/:libroId", async (req, res) => {
+  const libroId = req.params.libroId;
+  const { isbn, titulo, autor, year,library } = req.body;
   try {
-    const newUser = await userService.updateUser(userId, {
-      nombre,
-      apellido,
-      email,
-      password,
+    const newLibro = await libroService.updateLibro(libroId, {
+      isbn,
+      titulo,
+      autor,
+      year,
+      library,
     });
-    res.status(200).json(newUser);
+    res.status(200).json(newLibro);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
-router.delete("/:userId", authIsAdmin, async (req, res) => {
-  const userId = req.params.userId;
+router.delete("/:libroId", authIsAdmin, async (req, res) => {
+  const libroId = req.params.libroId;
   try {
-    const user = await userService.deleteUser(userId);
-    res.status(200).json(user);
+    const libro = await libroService.deleteLibro(libroId);
+    res.status(200).json(libro);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
