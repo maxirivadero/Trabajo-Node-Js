@@ -27,6 +27,6 @@ const Libro = sequelize.define("Libro", {
 },{paranoid:true, deletedAt: 'softDelete'});
 
 Libreria.hasMany(Libro);
-Libro.belongsTo(Libreria);
+Libro.belongsTo(Libreria,{ targetKey: 'library', foreignKey: 'id' });
 
 module.exports = Libro;
