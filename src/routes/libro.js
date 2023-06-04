@@ -6,7 +6,7 @@ const { authIsAdmin } = require("../middleware/authentication-jwt");
 router.get("/:libroId", async (req, res) => {
   const libroId = req.params.libroId;
   try {
-    const libro = await libroService.getlibro(libroId);
+    const libro = await libroService.getLibro(libroId);
     res.status(200).json(libro);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -36,7 +36,7 @@ router.get("/", async (req, res) => {
 });
 
 
-router.post("/", authIsAdmin,  async (req, res) => {
+router.post("/",  async (req, res) => {
   const { isbn, titulo, autor, year,library } = req.body;
   try {
     const newLibro = await libroService.createLibro({
@@ -45,6 +45,7 @@ router.post("/", authIsAdmin,  async (req, res) => {
       autor,
       year,
       library,
+      LibreriumId: library
     });
     res.status(201).json(newLibro);
   } catch (error) {
@@ -52,7 +53,7 @@ router.post("/", authIsAdmin,  async (req, res) => {
   }
 });
 
-router.put("/:libroId", authIsAdmin,  async (req, res) => {
+router.put("/:libroId",  async (req, res) => {
   const libroId = req.params.libroId;
   const { isbn, titulo, autor, year,library } = req.body;
   try {
@@ -69,7 +70,7 @@ router.put("/:libroId", authIsAdmin,  async (req, res) => {
   }
 });
 
-router.delete("/:libroId", authIsAdmin, async (req, res) => {
+router.delete("/:libroId", async (req, res) => {
   const libroId = req.params.libroId;
   try {
     const libro = await libroService.deleteLibro(libroId);

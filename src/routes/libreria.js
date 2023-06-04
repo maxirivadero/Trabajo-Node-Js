@@ -6,7 +6,7 @@ const { authIsAdmin } = require("../middleware/authentication-jwt");
 router.get("/:libreriaId", async (req, res) => {
   const libreriaId = req.params.libreriaId;
   try {
-    const libreria = await libreriaService.getlibreria(libreriaId);
+    const libreria = await libreriaService.getLibreria(libreriaId);
     res.status(200).json(libreria);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -34,7 +34,7 @@ router.get("/", async (req, res) => {
 });
 
 
-router.post("/", authIsAdmin,  async (req, res) => {
+router.post("/",  async (req, res) => {
   const { name, location, telefono } = req.body;
   try {
     const newLibreria = await libreriaService.createLibreria({
@@ -48,7 +48,7 @@ router.post("/", authIsAdmin,  async (req, res) => {
   }
 });
 
-router.put("/:libreriaId", authIsAdmin,  async (req, res) => {
+router.put("/:libreriaId",  async (req, res) => {
   const libreriaId = req.params.libreriaId;
   const { name, location, telefono } = req.body;
   try {
@@ -63,7 +63,7 @@ router.put("/:libreriaId", authIsAdmin,  async (req, res) => {
   }
 });
 
-router.delete("/:libreriaId", authIsAdmin, async (req, res) => {
+router.delete("/:libreriaId", async (req, res) => {
   const libreriaId = req.params.libreriaId;
   try {
     const libreria = await libreriaService.deleteLibreria(libreriaId);
